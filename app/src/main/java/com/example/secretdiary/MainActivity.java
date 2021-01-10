@@ -1,5 +1,7 @@
 package com.example.secretdiary;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -14,11 +16,16 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import java.lang.ref.WeakReference;
@@ -42,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements LoadNotesCallback
 //        TabLayout tabs = findViewById(R.id.tabs);
 //        tabs.setupWithViewPager(viewPager);
 
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle("Story");
 
         progressBar = findViewById(R.id.progressbar);
         rvNotes = findViewById(R.id.rv_notes);
@@ -68,6 +77,35 @@ public class MainActivity extends AppCompatActivity implements LoadNotesCallback
             }
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent j = new Intent(this, SettingActivity.class);
+                startActivity(j);
+                return true;
+
+//        switch (item.getItemId()) {
+//            case R.id.menu1:
+//                Intent i = new Intent(this, ReminderActivity.class);
+//                startActivity(i);
+//                return true;
+//            case R.id.menu2:
+//                Intent j = new Intent(this, SettingActivity.class);
+//                startActivity(j);
+//                return true;
+//            default:
+//                return true;
+//        }
+    }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

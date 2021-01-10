@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="profile_category"
+        app:title="Profile"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            android:key="@string/key_name"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/nothing"
+            android:title="@string/name"
+            app:iconSpaceReserved="false"/>
+        <EditTextPreference
+            android:inputType="textEmailAddress"
+            android:key="@string/key_email"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/nothing"
+            android:title="@string/email"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory-->
+<!--        app:key="notifications_category"-->
+<!--        app:title="Notifications"-->
+<!--        app:iconSpaceReserved="false">-->
+
+<!--&lt;!&ndash;        <Preference&ndash;&gt;-->
+<!--&lt;!&ndash;            app:key="notifications"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:title="Enable message notifications"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:iconSpaceReserved="false">&ndash;&gt;-->
+<!--&lt;!&ndash;            <intent&ndash;&gt;-->
+<!--&lt;!&ndash;                android:targetPackage="com.example.secretdiary"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:targetClass="com.example.secretdiary.ReminderActivity"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </Preference>&ndash;&gt;-->
+
+<!--    </PreferenceCategory>-->
+
+</PreferenceScreen>
