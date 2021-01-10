@@ -88,22 +88,18 @@ public class MainActivity extends AppCompatActivity implements LoadNotesCallback
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent j = new Intent(this, SettingActivity.class);
+        switch (item.getItemId()) {
+            case R.id.menu1:
+                Intent i = new Intent(this, ReminderActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.menu2:
+                Intent j = new Intent(this, SettingActivity.class);
                 startActivity(j);
                 return true;
-
-//        switch (item.getItemId()) {
-//            case R.id.menu1:
-//                Intent i = new Intent(this, ReminderActivity.class);
-//                startActivity(i);
-//                return true;
-//            case R.id.menu2:
-//                Intent j = new Intent(this, SettingActivity.class);
-//                startActivity(j);
-//                return true;
-//            default:
-//                return true;
-//        }
+            default:
+                return true;
+        }
     }
 
 

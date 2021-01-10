@@ -18,14 +18,10 @@
     <string name="key_email">email</string>
     <string name="email">Email</string>
 
-    <string name="one_time_alarm">One Time Alarm</string>
-    <string name="alarm_date">Tanggal Alarm</string>
-    <string name="set_one_time_alarm">Set One Time Alarm</string>
-    <string name="alarm_message">Pesan Alarm</string>
-    <string name="repeating_alarm">Repeating Alarm</string>
-    <string name="set_repeating_alarm">Set Repeating Alarm</string>
-    <string name="cancel_alarm">Batalkan Alarm</string>
-    <string name="alarm_time">Waktu Alarm</string>
+    <string name="alarm_message">Bagaimana harimu?</string>
+    <string name="alarm_reminder">Aktifkan</string>
+    <string name="cancel_reminder">Batalkan</string>
+    <string name="reminder_time">Waktu Reminder</string>
 
     <string name="menu1">Menu 1</string>
     <string name="menu2">Menu 2</string>

@@ -26,13 +26,10 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class ReminderReceiver extends BroadcastReceiver {
-    public static final String TYPE_ONE_TIME = "OneTimeAlarm";
-    public static final String TYPE_REPEATING = "RepeatingAlarm";
+    public static final String TYPE_REPEATING = "Reminder";
     private static final String EXTRA_MESSAGE = "message";
     private static final String EXTRA_TYPE = "type";
 
-    // Siapkan 2 id untuk 2 macam alarm, onetime dan repeating
-    private final static int ID_ONETIME = 100;
     private final static int ID_REPEATING = 101;
 
     @Override
@@ -40,8 +37,8 @@ public class ReminderReceiver extends BroadcastReceiver {
         String type = intent.getStringExtra(EXTRA_TYPE);
         String message = intent.getStringExtra(EXTRA_MESSAGE);
 
-        String title = type.equalsIgnoreCase(TYPE_ONE_TIME) ? TYPE_ONE_TIME : TYPE_REPEATING;
-        int notifId = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
+        String title = TYPE_REPEATING;
+        int notifId = ID_REPEATING;
 
         showAlarmNotification(context, title, message, notifId);
     }
@@ -55,19 +52,13 @@ public class ReminderReceiver extends BroadcastReceiver {
         String CHANNEL_NAME = "AlarmManager channel";
 
         NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_access_time_24)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound);
+                .setVibrate(new long[]{500, 500});
 
-        /*
-        Untuk android Oreo ke atas perlu menambahkan notification channel
-        Materi ini akan dibahas lebih lanjut di modul extended
-         */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             /* Create or update. */
@@ -93,42 +84,8 @@ public class ReminderReceiver extends BroadcastReceiver {
 
     }
 
-    // Metode ini digunakan untuk menjalankan alarm one time
-
-    public void setOneTimeAlarm(Context context, String type, String date, String time, String message) {
-
-        // Validasi inputan date dan time terlebih dahulu
-        if (isDateInvalid(date, DATE_FORMAT) || isDateInvalid(time, TIME_FORMAT)) return;
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ReminderReceiver.class);
-        intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra(EXTRA_TYPE, type);
-
-        Log.e("ONE TIME", date + " " + time);
-        String[] dateArray = date.split("-");
-        String[] timeArray = time.split(":");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[0]));
-        calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[2]));
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
-        calendar.set(Calendar.SECOND, 0);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_ONETIME, intent, 0);
-        if (alarmManager != null) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
-        Toast.makeText(context, "One time alarm set up", Toast.LENGTH_SHORT).show();
-    }
-
-    // Metode ini digunakan untuk menjalankan alarm repeating
     public void setRepeatingAlarm(Context context, String type, String time, String message) {
 
-        // Validasi inputan waktu terlebih dahulu
         if (isDateInvalid(time, TIME_FORMAT)) return;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -148,14 +105,14 @@ public class ReminderReceiver extends BroadcastReceiver {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
 
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Reminder set up", Toast.LENGTH_SHORT).show();
     }
 
 
     public void cancelAlarm(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
-        int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
+        int requestCode = ID_REPEATING;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
 
@@ -163,22 +120,18 @@ public class ReminderReceiver extends BroadcastReceiver {
             alarmManager.cancel(pendingIntent);
         }
 
-        Toast.makeText(context, "Repeating alarm dibatalkan", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Reminder dibatalkan", Toast.LENGTH_SHORT).show();
     }
 
-
-    // Gunakan metode ini untuk mengecek apakah alarm tersebut sudah terdaftar di alarm manager
     public boolean isAlarmSet(Context context, String type) {
         Intent intent = new Intent(context, ReminderReceiver.class);
-        int requestCode = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
+        int requestCode = ID_REPEATING;
 
         return PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE) != null;
     }
 
-    private final static String DATE_FORMAT = "yyyy-MM-dd";
     private final static String TIME_FORMAT = "HH:mm";
 
-    // Metode ini digunakan untuk validasi date dan time
     private boolean isDateInvalid(String date, String format) {
         try {
             DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
