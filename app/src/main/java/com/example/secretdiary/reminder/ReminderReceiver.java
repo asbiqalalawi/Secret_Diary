@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +18,11 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.secretdiary.MainActivity;
+import com.example.secretdiary.NoteAddUpdateActivity;
 import com.example.secretdiary.R;
+import com.example.secretdiary.ReminderActivity;
+import com.example.secretdiary.SettingActivity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,13 +56,18 @@ public class ReminderReceiver extends BroadcastReceiver {
         String CHANNEL_ID = "Channel_1";
         String CHANNEL_NAME = "AlarmManager channel";
 
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                new Intent(context, NoteAddUpdateActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-                .setVibrate(new long[]{500, 500});
+                .setVibrate(new long[]{500, 500})
+                .setContentIntent(contentIntent)
+                .setOngoing(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 

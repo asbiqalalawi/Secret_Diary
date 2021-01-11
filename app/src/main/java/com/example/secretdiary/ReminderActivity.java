@@ -63,6 +63,7 @@ public class ReminderActivity extends AppCompatActivity implements View.OnClickL
             alarmReceiver.cancelAlarm(this, ReminderReceiver.TYPE_REPEATING);
         }
     }
+    
 
     @Override
     public void onDialogDateSet(String tag, int year, int month, int dayOfMonth) {

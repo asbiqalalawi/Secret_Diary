@@ -97,9 +97,6 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
             String title = edtTitle.getText().toString().trim();
             String description = edtDescription.getText().toString().trim();
 
-            /*
-            Jika fieldnya masih kosong maka tampilkan error
-             */
             if (TextUtils.isEmpty(title)) {
                 edtTitle.setError("Field can not be blank");
                 return;
@@ -112,14 +109,10 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
             intent.putExtra(EXTRA_NOTE, note);
             intent.putExtra(EXTRA_POSITION, position);
 
-            // Gunakan contentvalues untuk menampung data
             ContentValues values = new ContentValues();
             values.put(TITLE, title);
             values.put(DESCRIPTION, description);
 
-            /*
-            Jika merupakan edit maka setresultnya UPDATE, dan jika bukan maka setresultnya ADD
-            */
             if (isEdit) {
                 long result = noteHelper.update(String.valueOf(note.getId()), values);
                 if (result > 0) {
@@ -175,11 +168,6 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
         showAlertDialog(ALERT_DIALOG_CLOSE);
     }
 
-    /*
-    Konfirmasi dialog sebelum proses batal atau hapus
-    close = 10
-    deleteNote = 20
-     */
     private void showAlertDialog(int type) {
         final boolean isDialogClose = type == ALERT_DIALOG_CLOSE;
         String dialogTitle, dialogMessage;
