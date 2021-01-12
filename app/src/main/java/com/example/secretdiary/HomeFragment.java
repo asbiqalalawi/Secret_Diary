@@ -34,7 +34,7 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements LoadNotesCallback{
+public class HomeFragment extends Fragment{
     private ProgressBar progressBar;
     private RecyclerView rvNotes;
     private NoteAdapter adapter;
@@ -78,56 +78,56 @@ public class HomeFragment extends Fragment implements LoadNotesCallback{
     }
 
 
-    @Override
-    public void preExecute() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void postExecute(ArrayList<Note> notes) {
-        progressBar.setVisibility(View.INVISIBLE);
-        if (notes.size() > 0) {
-            adapter.setListNotes(notes);
-        } else {
-            adapter.setListNotes(new ArrayList<>());
-            showSnackbarMessage("Tidak ada data saat ini");
-        }
-    }
-
-    private static class LoadNotesAsync extends AsyncTask<Void, Void, ArrayList<Note>> {
-
-        private final WeakReference<NoteHelper> weakNoteHelper;
-        private final WeakReference<LoadNotesCallback> weakCallback;
-
-        private LoadNotesAsync(NoteHelper noteHelper, LoadNotesCallback callback) {
-            weakNoteHelper = new WeakReference<>(noteHelper);
-            weakCallback = new WeakReference<>(callback);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            weakCallback.get().preExecute();
-        }
-
-        @Override
-        protected ArrayList<Note> doInBackground(Void... voids) {
-            Cursor dataCursor = weakNoteHelper.get().queryAll();
-            return MappingHelper.mapCursorToArrayList(dataCursor);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Note> notes) {
-            super.onPostExecute(notes);
-
-            weakCallback.get().postExecute(notes);
-
-        }
-    }
-
-
-    private void showSnackbarMessage(String message) {
-        Snackbar.make(rvNotes, message, Snackbar.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void preExecute() {
+//        progressBar.setVisibility(View.VISIBLE);
+//    }
+//
+//    @Override
+//    public void postExecute(ArrayList<Note> notes) {
+//        progressBar.setVisibility(View.INVISIBLE);
+//        if (notes.size() > 0) {
+//            adapter.setListNotes(notes);
+//        } else {
+//            adapter.setListNotes(new ArrayList<>());
+//            showSnackbarMessage("Tidak ada data saat ini");
+//        }
+//    }
+//
+//    private static class LoadNotesAsync extends AsyncTask<Void, Void, ArrayList<Note>> {
+//
+//        private final WeakReference<NoteHelper> weakNoteHelper;
+//        private final WeakReference<LoadNotesCallback> weakCallback;
+//
+//        private LoadNotesAsync(NoteHelper noteHelper, LoadNotesCallback callback) {
+//            weakNoteHelper = new WeakReference<>(noteHelper);
+//            weakCallback = new WeakReference<>(callback);
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            weakCallback.get().preExecute();
+//        }
+//
+//        @Override
+//        protected ArrayList<Note> doInBackground(Void... voids) {
+//            Cursor dataCursor = weakNoteHelper.get().queryAll();
+//            return MappingHelper.mapCursorToArrayList(dataCursor);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<Note> notes) {
+//            super.onPostExecute(notes);
+//
+//            weakCallback.get().postExecute(notes);
+//
+//        }
+//    }
+//
+//
+//    private void showSnackbarMessage(String message) {
+//        Snackbar.make(rvNotes, message, Snackbar.LENGTH_SHORT).show();
+//    }
 }
 

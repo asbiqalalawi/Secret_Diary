@@ -177,7 +177,7 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
             dialogMessage = "Apakah anda ingin membatalkan perubahan pada form?";
         } else {
             dialogMessage = "Apakah anda yakin ingin menghapus item ini?";
-            dialogTitle = "Hapus Note";
+            dialogTitle = "Hapus Cerita";
         }
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

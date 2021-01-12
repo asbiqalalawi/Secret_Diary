@@ -2,10 +2,6 @@ package com.example.secretdiary.db;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by dicoding on 10/12/2017.
- */
-
 public class DatabaseContract {
 
     public static final class NoteColumns implements BaseColumns {

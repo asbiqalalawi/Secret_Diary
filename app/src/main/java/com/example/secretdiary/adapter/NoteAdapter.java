@@ -17,10 +17,6 @@ import com.example.secretdiary.entity.Note;
 
 import java.util.ArrayList;
 
-/**
- * Created by sidiqpermana on 11/23/16.
- */
-
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private final ArrayList<Note> listNotes = new ArrayList<>();
     private final Activity activity;
