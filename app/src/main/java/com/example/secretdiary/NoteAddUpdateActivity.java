@@ -1,14 +1,8 @@
 package com.example.secretdiary;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -17,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.secretdiary.db.NoteHelper;
@@ -35,8 +28,6 @@ import static com.example.secretdiary.db.DatabaseContract.NoteColumns.TITLE;
 
 public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText edtTitle, edtDescription;
-    ImageView mImageView;
-    Button mAddFoto;
 
     private boolean isEdit = false;
     private Note note;
@@ -50,13 +41,9 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
     public static final int REQUEST_UPDATE = 200;
     public static final int RESULT_UPDATE = 201;
     public static final int RESULT_DELETE = 301;
-    public static final int IMAGE_PICK_CODE = 1000;
-    public static final int PERMISSION_CODE = 1001;
     private final int ALERT_DIALOG_CLOSE = 10;
     private final int ALERT_DIALOG_DELETE = 20;
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +52,6 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
         edtTitle = findViewById(R.id.edt_title);
         edtDescription = findViewById(R.id.edt_description);
         Button btnSubmit = findViewById(R.id.btn_submit);
-        mImageView = findViewById(R.id.image_upload);
-        mAddFoto = findViewById(R.id.btn_addFoto);
 
         noteHelper = NoteHelper.getInstance(getApplicationContext());
         noteHelper.open();
@@ -103,32 +88,11 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
         btnSubmit.setText(btnTitle);
 
         btnSubmit.setOnClickListener(this);
-        mAddFoto.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED) {
-                        String[] permissions = {
-                                Manifest.permission.READ_EXTERNAL_STORAGE
-                        };
-                        requestPermissions(permissions, PERMISSION_CODE);
-                    } else {
-                        pickImageFromGallery();
-                    }
-                } else {
-                    pickImageFromGallery();
-                }
-            }
-        });
-
 
     }
 
-
     @Override
     public void onClick(View view) {
-
         if (view.getId() == R.id.btn_submit) {
             String title = edtTitle.getText().toString().trim();
             String description = edtDescription.getText().toString().trim();
@@ -137,7 +101,6 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
                 edtTitle.setError("Field can not be blank");
                 return;
             }
-
 
             note.setTitle(title);
             note.setDescription(description);
@@ -171,34 +134,6 @@ public class NoteAddUpdateActivity extends AppCompatActivity implements View.OnC
                     Toast.makeText(NoteAddUpdateActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-    }
-
-    private void pickImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, IMAGE_PICK_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult){
-        switch (requestCode){
-            case PERMISSION_CODE:{
-                if (grantResult.length >0 && grantResult[0]==
-                        PackageManager.PERMISSION_GRANTED ){
-                    pickImageFromGallery();
-                }else{
-                    Toast.makeText(this, "Permission denied ..", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            mImageView.setImageURI(data.getData());
         }
     }
 

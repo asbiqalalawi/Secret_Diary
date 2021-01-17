@@ -24,9 +24,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
             DatabaseContract.NoteColumns.DATE
     );
 
-
-
-
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
