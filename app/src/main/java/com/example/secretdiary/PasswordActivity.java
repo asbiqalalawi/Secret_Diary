@@ -18,9 +18,7 @@ public class PasswordActivity extends AppCompatActivity {
 
         passcodeView = findViewById(R.id.passcodeView);
 
-        passcodeView.setPasscodeLength(4)
-                .setLocalPasscode("1234")
-                .setListener(new PasscodeView.PasscodeViewListener() {
+        passcodeView.setPasscodeLength(4).setListener(new PasscodeView.PasscodeViewListener() {
             @Override
             public void onFail() {
                 Toast.makeText(getApplicationContext(),
@@ -32,6 +30,7 @@ public class PasswordActivity extends AppCompatActivity {
             public void onSuccess(String number) {
                 Intent intent = new Intent(PasswordActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
