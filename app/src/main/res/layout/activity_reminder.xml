@@ -11,8 +11,7 @@
 
         <ImageButton
             android:id="@+id/btn_repeating_time"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            style="@style/IconStyle"
             android:src="@drawable/ic_baseline_access_time_24" />
 
         <TextView
@@ -37,16 +36,14 @@
 
         <Button
             android:id="@+id/btn_cancel_repeating_alarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button2"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:text="@string/cancel_reminder" />
 
         <Button
             android:id="@+id/btn_set_repeating_alarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button2"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:text="@string/alarm_reminder" />

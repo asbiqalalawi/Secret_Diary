@@ -18,12 +18,14 @@
     <string name="key_email">email</string>
     <string name="email">Email</string>
 
-    <string name="alarm_message">Bagaimana harimu?</string>
+    <string name="alarm_message">pesan alarm</string>
     <string name="alarm_reminder">Aktifkan</string>
     <string name="cancel_reminder">Batalkan</string>
     <string name="reminder_time">Waktu Reminder</string>
 
     <string name="menu1">Menu 1</string>
     <string name="menu2">Menu 2</string>
+    <string name="apa_cerita_mu_hari_ini">Apa cerita mu hari ini?</string>
+    <string name="judul">Judul</string>
 
 </resources>
