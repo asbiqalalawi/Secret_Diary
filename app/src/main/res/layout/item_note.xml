@@ -47,7 +47,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/description"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:maxLines="3"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

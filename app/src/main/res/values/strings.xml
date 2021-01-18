@@ -26,6 +26,7 @@
     <string name="menu1">Menu 1</string>
     <string name="menu2">Menu 2</string>
     <string name="apa_cerita_mu_hari_ini">Apa cerita mu hari ini?</string>
-    <string name="judul">Judul</string>
+
+    <string name="Masukkan_judul">Masukkan Judul</string>
 
 </resources>

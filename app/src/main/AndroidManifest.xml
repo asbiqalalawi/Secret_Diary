@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.SecretDiary">
-        <activity android:name=".PasswordActivity"/>
+        <activity android:name=".PasswordActivity" />
         <activity android:name=".ReminderActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".SplashScreenActivity">
